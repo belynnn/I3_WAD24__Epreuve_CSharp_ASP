@@ -70,6 +70,12 @@
     <Build Include="Tables\Tag.sql" />
     <Build Include="Tables\Emprunt.sql" />
     <Build Include="Functions\SF_SaltAndHash.sql" />
+    <Build Include="Stored Procedures\SP_Utilisateur_Delete.sql" />
+    <Build Include="Stored Procedures\SP_Utilisateur_GetAll.sql" />
+    <Build Include="Stored Procedures\SP_Utilisateur_GetAllActive.sql" />
+    <Build Include="Stored Procedures\SP_Utilisateur_GetById.sql" />
+    <Build Include="Stored Procedures\SP_Utilisateur_Insert.sql" />
+    <Build Include="Stored Procedures\SP_Utilisateur_Update.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DB.publish.xml" />
