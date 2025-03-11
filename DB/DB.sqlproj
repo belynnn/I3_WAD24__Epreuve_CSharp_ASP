@@ -76,6 +76,11 @@
     <Build Include="Stored Procedures\SP_Utilisateur_GetById.sql" />
     <Build Include="Stored Procedures\SP_Utilisateur_Insert.sql" />
     <Build Include="Stored Procedures\SP_Utilisateur_Update.sql" />
+    <Build Include="Stored Procedures\SP_Jeu_Insert.sql" />
+    <Build Include="Stored Procedures\SP_Jeu_Update.sql" />
+    <Build Include="Stored Procedures\SP_Jeu_Delete.sql" />
+    <Build Include="Stored Procedures\SP_Jeu_GetAll.sql" />
+    <Build Include="Stored Procedures\SP_Jeu_GetById.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DB.publish.xml" />
