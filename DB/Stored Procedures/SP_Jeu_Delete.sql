@@ -10,8 +10,7 @@ BEGIN
             -- Ne pas mettre à jour JeuId car c'est une colonne IDENTITY
             UPDATE [dbo].[Jeux]
             SET    [Nom]          = 'Jeu Inconnu',
-                   [Description]  = 'Jeu supprimé',
-                   [DateCreation] = NULL
+                   [Description]  = 'Jeu supprimé'
             WHERE  [JeuId] = @JeuId;
 
             -- Mettre à jour les tables Posseder et Emprunt en remplaçant le JeuId
