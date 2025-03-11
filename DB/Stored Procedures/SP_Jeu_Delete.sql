@@ -11,7 +11,6 @@ BEGIN
             UPDATE [dbo].[Jeux]
             SET    [Nom]          = 'Jeu Inconnu',
                    [Description]  = 'Jeu supprimé',
-                   [EtatId]       = NULL,
                    [DateCreation] = NULL
             WHERE  [JeuId] = @JeuId;
 

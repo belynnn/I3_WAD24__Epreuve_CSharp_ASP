@@ -5,10 +5,9 @@
     @AgeMax INT,
     @NbJoueurMin INT,
     @NbJoueurMax INT,
-    @DureeMinute INT = NULL,
-    @EtatId INT
+    @DureeMinute INT = NULL
 AS
 BEGIN
-    INSERT INTO [dbo].[Jeux] ([Nom], [Description], [AgeMin], [AgeMax], [NbJoueurMin], [NbJoueurMax], [DureeMinute], [EtatId])
-    VALUES (@Nom, @Description, @AgeMin, @AgeMax, @NbJoueurMin, @NbJoueurMax, @DureeMinute, @EtatId)
+    INSERT INTO [dbo].[Jeux] ([Nom], [Description], [AgeMin], [AgeMax], [NbJoueurMin], [NbJoueurMax], [DureeMinute])
+    VALUES (@Nom, @Description, @AgeMin, @AgeMax, @NbJoueurMin, @NbJoueurMax, @DureeMinute)
 END

@@ -11,8 +11,7 @@ BEGIN
         [NbJoueurMin],
         [NbJoueurMax],
         [DureeMinute],
-        [DateCreation],
-        [EtatId]
+        [DateCreation]
     FROM [dbo].[Jeux]
     WHERE [JeuId] = @JeuId
 END

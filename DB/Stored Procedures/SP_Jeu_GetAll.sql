@@ -10,7 +10,6 @@ BEGIN
         [NbJoueurMin],
         [NbJoueurMax],
         [DureeMinute],
-        [DateCreation],
-        [EtatId]
+        [DateCreation]
     FROM [dbo].[Jeux]
 END

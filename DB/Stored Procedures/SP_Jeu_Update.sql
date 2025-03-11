@@ -18,7 +18,6 @@ BEGIN
         [AgeMax] = @AgeMax,
         [NbJoueurMin] = @NbJoueurMin,
         [NbJoueurMax] = @NbJoueurMax,
-        [DureeMinute] = @DureeMinute,
-        [EtatId] = @EtatId
+        [DureeMinute] = @DureeMinute
     WHERE [JeuId] = @JeuId
 END
