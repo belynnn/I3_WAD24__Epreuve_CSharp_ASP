@@ -6,5 +6,6 @@
     [Pseudo] NVARCHAR(50) NOT NULL,
     [DateCreation] DATETIME NOT NULL DEFAULT GETDATE(),
     [DateDesactivation] DATETIME NULL,
+	[Salt] UNIQUEIDENTIFIER DEFAULT NEWID() NOT NULL,
     CONSTRAINT PK_Utilisateur PRIMARY KEY ([UtilisateurId])
 );

@@ -9,6 +9,18 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+-- 0. Ajout du salt unique par utilisateur
+IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'Utilisateur' AND COLUMN_NAME = 'Salt')
+BEGIN
+    ALTER TABLE [dbo].[Utilisateur]
+    ADD [Salt] UNIQUEIDENTIFIER DEFAULT NEWID() NOT NULL;
+END
+
+CREATE TABLE #UserSaltTemp (
+    UtilisateurId INT,
+    Salt UNIQUEIDENTIFIER
+);
+
 -- 1. Insertion dans la table Etat (table indépendante)
 INSERT INTO [dbo].[Etat] ([Nom])
 VALUES
@@ -33,10 +45,11 @@ VALUES
     ('Risk', 'Jeu de stratégie où l''objectif est de conquérir le monde.', 12, 99, 2, 6, 180, 1);
 
 -- 4. Insertion dans la table Utilisateur
-INSERT INTO [dbo].[Utilisateur] ([Email], [MotDePasse], [Pseudo], [DateCreation])
-VALUES
-    ('john.doe@example.com', '1234', 'JohnDoe', GETDATE()),
-    ('jane.smith@example.com', '1234', 'JaneSmith', GETDATE());
+INSERT INTO [dbo].[Utilisateur] ([Email], [MotDePasse], [Pseudo], [DateCreation], [Salt])
+OUTPUT INSERTED.UtilisateurId, INSERTED.Salt INTO #UserSaltTemp (UtilisateurId, Salt)
+VALUES 
+    ('john.doe@example.com', '1234', 'JohnDoe', GETDATE(), NEWID()), 
+    ('jane.smith@example.com', '1234', 'JaneSmith', GETDATE(), NEWID());
 
 -- 5. Insertion dans la table Posseder (dépend de Utilisateur, Jeux, et Etat)
 -- Assure-toi que les UtilisateurId et JeuId existent et sont valides
@@ -57,3 +70,8 @@ VALUES
 INSERT INTO [dbo].[Emprunt] ([JeuId], [PreteurId], [EmprunteurId], [DateEmprunt])
 VALUES
     (1, 1, 2, GETDATE());  -- JohnDoe prête Monopoly à JaneSmith
+
+UPDATE u
+SET u.MotDePasse = dbo.SF_SaltAndHash(u.MotDePasse, ut.Salt)  -- Hash le mot de passe avec le salt
+FROM [dbo].[Utilisateur] u
+JOIN #UserSaltTemp ut ON u.UtilisateurId = ut.UtilisateurId;
