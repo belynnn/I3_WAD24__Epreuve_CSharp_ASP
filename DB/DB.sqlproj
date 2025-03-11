@@ -57,6 +57,8 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Tables" />
+    <Folder Include="Scripts" />
+    <Folder Include="Functions" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Utilisateur.sql" />
@@ -66,8 +68,12 @@
     <Build Include="Tables\Associer.sql" />
     <Build Include="Tables\Tag.sql" />
     <Build Include="Tables\Emprunt.sql" />
+    <Build Include="Functions\SF_SaltAndHash.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DB.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>
