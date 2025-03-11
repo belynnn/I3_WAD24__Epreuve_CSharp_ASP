@@ -1,36 +1,34 @@
 ﻿CREATE PROCEDURE [dbo].[SP_Jeu_Delete]
-@JeuId INT -- Identifiant du jeu à supprimer (ou remplacer par un id spécifique)
+CREATE PROCEDURE [dbo].[SP_Jeu_Delete]
+@JeuId INT
 AS
 BEGIN
-    -- Vérifier si le jeu existe
-    IF EXISTS (SELECT 1 FROM [dbo].[Jeux] WHERE [JeuId] = @JeuId)
-    BEGIN
-        DECLARE @InconnuId INT = -1; -- ID spécifique à attribuer aux jeux supprimés
+    IF EXISTS (SELECT 1
+               FROM   [dbo].[Jeux]
+               WHERE  [JeuId] = @JeuId)
+        BEGIN
+            DECLARE @InconnuId AS INT = -1;
+            -- Ne pas mettre à jour JeuId car c'est une colonne IDENTITY
+            UPDATE [dbo].[Jeux]
+            SET    [Nom]          = 'Jeu Inconnu',
+                   [Description]  = 'Jeu supprimé',
+                   [EtatId]       = NULL,
+                   [DateCreation] = NULL
+            WHERE  [JeuId] = @JeuId;
 
-        -- Mettre à jour le jeu en attribuant l'ID spécifique (inconnuId)
-        UPDATE [dbo].[Jeux]
-        SET [JeuId] = @InconnuId, -- Mettre l'ID du jeu à -1 (par exemple)
-            [Nom] = 'Jeu Inconnu', -- Vous pouvez aussi mettre à jour d'autres informations comme le nom
-            [Description] = 'Jeu supprimé', 
-            [EtatId] = NULL, -- Vous pouvez aussi définir l'état comme NULL si nécessaire
-            [DateCreation] = NULL -- Et définir la date de création comme NULL
-        WHERE [JeuId] = @JeuId;
+            -- Mettre à jour les tables Posseder et Emprunt en remplaçant le JeuId
+            UPDATE [dbo].[Posseder]
+            SET    [JeuId] = @InconnuId
+            WHERE  [JeuId] = @JeuId;
 
-        -- Mettre à jour les relations dans les autres tables (Posseder, Emprunt)
-        UPDATE [dbo].[Posseder]
-        SET [JeuId] = @InconnuId
-        WHERE [JeuId] = @JeuId;
+            UPDATE [dbo].[Emprunt]
+            SET    [JeuId] = @InconnuId
+            WHERE  [JeuId] = @JeuId;
 
-        UPDATE [dbo].[Emprunt]
-        SET [JeuId] = @InconnuId
-        WHERE [JeuId] = @JeuId;
-
-        -- Retourner un message indiquant que le jeu a été remplacé par un jeu inconnu
-        SELECT 'Jeu remplacé par un jeu inconnu avec succès' AS Message;
-    END
+            SELECT 'Jeu remplacé par un jeu inconnu avec succès' AS Message;
+        END
     ELSE
-    BEGIN
-        -- Si le jeu n'existe pas, retourner un message d'erreur
-        SELECT 'Jeu non trouvé' AS Message;
-    END
+        BEGIN
+            SELECT 'Jeu non trouvé' AS Message;
+        END
 END
