@@ -81,6 +81,12 @@
     <Build Include="Stored Procedures\SP_Jeu_Delete.sql" />
     <Build Include="Stored Procedures\SP_Jeu_GetAll.sql" />
     <Build Include="Stored Procedures\SP_Jeu_GetById.sql" />
+    <Build Include="Stored Procedures\SP_Emprunt_Insert.sql" />
+    <Build Include="Stored Procedures\SP_Emprunt_Update.sql" />
+    <Build Include="Stored Procedures\SP_Emprunt_Return.sql" />
+    <Build Include="Stored Procedures\SP_Emprunt_Delete.sql" />
+    <Build Include="Stored Procedures\SP_Emprunt_GetByUser.sql" />
+    <Build Include="Stored Procedures\SP_Emprunt_GetById.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DB.publish.xml" />
