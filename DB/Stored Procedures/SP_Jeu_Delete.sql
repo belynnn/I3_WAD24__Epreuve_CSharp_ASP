@@ -1,5 +1,4 @@
 ﻿CREATE PROCEDURE [dbo].[SP_Jeu_Delete]
-CREATE PROCEDURE [dbo].[SP_Jeu_Delete]
 @JeuId INT
 AS
 BEGIN
