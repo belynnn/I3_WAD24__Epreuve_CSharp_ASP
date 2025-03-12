@@ -9,6 +9,8 @@ namespace Common.Repositories
 	public interface ICRUDRepository<TEntity, TId>
 	{
 		IEnumerable<TEntity> Get();
+		IEnumerable<TEntity> GetAll();
+		IEnumerable<TEntity> GetAllActive();
 		TEntity Get(TId id);
 		TId Insert(TEntity entity);
 		void Update(TId id, TEntity entity);
