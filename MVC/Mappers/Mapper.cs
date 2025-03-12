@@ -46,7 +46,8 @@ namespace MVC.Mappers
 			if (user is null) throw new ArgumentNullException(nameof(user));
 			return new UserEditForm()
 			{
-				Pseudo = user.Pseudo,
+				UtilisateurId = user.UtilisateurId,
+				Pseudo = user.Pseudo
 			};
 		}
 
@@ -62,6 +63,7 @@ namespace MVC.Mappers
 			if (user is null) throw new ArgumentNullException(nameof(user));
 			return new UserDelete()
 			{
+				UtilisateurId = user.UtilisateurId,
 				Pseudo = user.Pseudo,
 				Email = user.Email,
 			};
