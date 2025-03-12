@@ -41,7 +41,7 @@ namespace DAL.Services
 			}
 		}
 
-		public User Get(Guid user_id)
+		public User Get(int user_id)
 		{
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
 			{
@@ -49,7 +49,9 @@ namespace DAL.Services
 				{
 					command.CommandText = "SP_Utilisateur_GetById";
 					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.AddWithValue(nameof(user_id), user_id);
+					// Ajouter le paramètre avec le bon nom (@UtilisateurId) de la procédure stockée
+					command.Parameters.AddWithValue("@UtilisateurId", user_id); // Nom exact du paramètre
+
 					connection.Open();
 					using (SqlDataReader reader = command.ExecuteReader())
 					{
@@ -66,7 +68,53 @@ namespace DAL.Services
 			}
 		}
 
-		public Guid Insert(User user)
+		public IEnumerable<User> GetAll()
+		{
+			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			{
+				using (SqlCommand command = connection.CreateCommand())
+				{
+					command.CommandText = "SP_Utilisateur_GetAll"; // Nom de la procédure stockée pour récupérer tous les utilisateurs
+					command.CommandType = CommandType.StoredProcedure;
+					connection.Open();
+					using (SqlDataReader reader = command.ExecuteReader())
+					{
+						var users = new List<User>();
+						while (reader.Read())
+						{
+							// Mappe chaque utilisateur récupéré depuis la base de données vers un objet User de BLL
+							users.Add(reader.ToUser()); // Assure-toi que 'ToUser()' est une extension qui mappe le lecteur SQL vers un objet User
+						}
+						return users;
+					}
+				}
+			}
+		}
+
+		public IEnumerable<User> GetAllActive()
+		{
+			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			{
+				using (SqlCommand command = connection.CreateCommand())
+				{
+					command.CommandText = "SP_Utilisateur_GetAllActive"; // Nom de la procédure stockée
+					command.CommandType = CommandType.StoredProcedure;
+					connection.Open();
+					using (SqlDataReader reader = command.ExecuteReader())
+					{
+						var users = new List<User>();
+						while (reader.Read())
+						{
+							// Mappe chaque utilisateur récupéré depuis la base de données vers un objet User de BLL
+							users.Add(reader.ToUser()); // Assure-toi que 'ToUser()' est une extension qui mappe le lecteur SQL vers un objet User
+						}
+						return users;
+					}
+				}
+			}
+		}
+
+		public int Insert(User user)
 		{
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
 			{
@@ -78,12 +126,12 @@ namespace DAL.Services
 					command.Parameters.AddWithValue(nameof(User.Email), user.Email);
 					command.Parameters.AddWithValue(nameof(User.MotDePasse), user.MotDePasse);
 					connection.Open();
-					return (Guid)command.ExecuteScalar();
+					return (int)command.ExecuteScalar();
 				}
 			}
 		}
 
-		public void Update(Guid user_id, User user)
+		public void Update(int user_id, User user)
 		{
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
 			{
@@ -91,17 +139,15 @@ namespace DAL.Services
 				{
 					command.CommandText = "SP_Utilisateur_Update";
 					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.AddWithValue(nameof(user_id), user_id);
-					command.Parameters.AddWithValue(nameof(User.Pseudo), user.Pseudo);
-					command.Parameters.AddWithValue(nameof(User.Email), user.Email);
-					command.Parameters.AddWithValue(nameof(User.Email), user.Email);
+					command.Parameters.AddWithValue("@UtilisateurId", user_id);
+					command.Parameters.AddWithValue("@NewPseudo", user.Pseudo);
 					connection.Open();
 					command.ExecuteNonQuery();
 				}
 			}
 		}
 
-		public void Delete(Guid user_id)
+		public void Delete(int user_id)
 		{
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
 			{
@@ -109,7 +155,7 @@ namespace DAL.Services
 				{
 					command.CommandText = "SP_Utilisateur_Delete";
 					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.AddWithValue(nameof(user_id), user_id);
+					command.Parameters.AddWithValue("@UtilisateurId", user_id); // Nom exact du paramètre
 					connection.Open();
 					command.ExecuteNonQuery();
 				}
@@ -117,7 +163,7 @@ namespace DAL.Services
 		}
 
 		/*
-		public Guid CheckPassword(string email, string password)
+		public int CheckPassword(string email, string password)
 		{
 			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
@@ -128,7 +174,7 @@ namespace DAL.Services
 					command.Parameters.AddWithValue(nameof(email), email);
 					command.Parameters.AddWithValue(nameof(password), password);
 					connection.Open();
-					return (Guid)command.ExecuteScalar();
+					return (int)command.ExecuteScalar();
 				}
 			}
 		}
