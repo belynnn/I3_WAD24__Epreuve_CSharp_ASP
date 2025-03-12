@@ -32,20 +32,13 @@ namespace MVC.Mappers
 		{
 			if (user is null) throw new ArgumentNullException(nameof(user));
 			return new User(
-				Guid.Empty,
-				user.First_Name,
-				user.Last_Name,
+				0, // Utilisation de 0 comme valeur par défaut pour un int
+				user.Pseudo,
 				user.Email,
-				user.Password,
+				user.MotDePasse,
 				DateTime.Now,
-				null,
-				"User"
-				);
-			/*return new User(
-                user.First_Name,
-                user.Last_Name,
-                user.Email,
-                user.Password);*/
+				null
+			);
 		}
 
 		public static UserEditForm ToEditForm(this User user)
@@ -53,39 +46,24 @@ namespace MVC.Mappers
 			if (user is null) throw new ArgumentNullException(nameof(user));
 			return new UserEditForm()
 			{
-				First_Name = user.First_Name,
-				Last_Name = user.Last_Name,
-				Email = user.Email
+				Pseudo = user.Pseudo,
 			};
 		}
 
 		public static User ToBLL(this UserEditForm user)
 		{
 			if (user is null) throw new ArgumentNullException(nameof(user));
-			/*return new User(
-                Guid.Empty,
-                user.First_Name,
-                user.Last_Name,
-                user.Email,
-                "********",
-                DateTime.Now,
-                null,
-                "User"
-                );*/
 			return new User(
-				user.First_Name,
-				user.Last_Name,
-				user.Email);
+				user.Pseudo); // en lien avec entity user BLL
 		}
 
-		public static UserDelete ToDelete(this User user)
+		public static UserDelete ToDelete(this User user) // désactiver l'utilisateur
 		{
 			if (user is null) throw new ArgumentNullException(nameof(user));
 			return new UserDelete()
 			{
-				First_Name = user.First_Name,
-				Last_Name = user.Last_Name,
-				Email = user.Email
+				Pseudo = user.Pseudo,
+				Email = user.Email,
 			};
 		}
 		#endregion
