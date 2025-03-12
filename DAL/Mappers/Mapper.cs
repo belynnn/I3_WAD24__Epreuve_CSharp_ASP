@@ -16,7 +16,7 @@ namespace DAL.Mappers
 
 			return new User()
 			{
-				UtilisateurId = (Guid)record[nameof(User.UtilisateurId)],
+				UtilisateurId = (int)record[nameof(User.UtilisateurId)],
 				Email = (string)record[nameof(User.Email)],
 				MotDePasse = "********",
 				Pseudo = (string)record[nameof(User.Pseudo)],

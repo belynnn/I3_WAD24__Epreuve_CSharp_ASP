@@ -18,7 +18,7 @@ namespace DAL.Services
 	{
 		// ⚡Pour la suite
 		// public UserService(IConfiguration config) : base(config, "Main-DB") { }
-		private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WAD24-DemoASP-DB;Integrated Security=True;";
+		private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB;Integrated Security=True;";
 		public IEnumerable<User> Get()
 		{
 			// ⚡Pour la suite ⚡⚡⚡ modifier chaque _connectionString en ConnectionString

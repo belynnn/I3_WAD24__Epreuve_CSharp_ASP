@@ -8,7 +8,7 @@ namespace DAL.Entities
 {
 	public class User
 	{
-		public Guid UtilisateurId { get; set; }
+		public int UtilisateurId { get; set; }
 		public string Email { get; set; }
 		public string MotDePasse { get; set; }
 		public string Pseudo { get; set; }
