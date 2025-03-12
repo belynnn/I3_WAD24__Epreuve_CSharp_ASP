@@ -13,17 +13,20 @@ using System.Threading.Tasks;
 namespace DAL.Services
 {
 	// ⚡Pour la suite
-	// public class UserService : BaseService, IUserRepository<DAL.Entities.User>
-	public class UserService : IUserRepository<DAL.Entities.User>
+	public class UserService : BaseService, IUserRepository<DAL.Entities.User>
+	// Pour DAL & BLL
+	// public class UserService : IUserRepository<DAL.Entities.User>
 	{
 		// ⚡Pour la suite
-		// public UserService(IConfiguration config) : base(config, "Main-DB") { }
-		private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB;Integrated Security=True;";
+		public UserService(IConfiguration config) : base(config, "Main-DB") { }
+		// Pour DAL & BLL
+		// private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB;Integrated Security=True;";
 		public IEnumerable<User> Get()
 		{
 			// ⚡Pour la suite ⚡⚡⚡ modifier chaque _connectionString en ConnectionString
-			// using (SqlConnection connection = new SqlConnection(_connectionString))
-			using (SqlConnection connection = new SqlConnection(ConnectionString)) 
+			using (SqlConnection connection = new SqlConnection(_connectionString))
+			// Pour DAL & BLL
+			// using (SqlConnection connection = new SqlConnection(ConnectionString)) 
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -43,7 +46,7 @@ namespace DAL.Services
 
 		public User Get(int user_id)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -70,7 +73,7 @@ namespace DAL.Services
 
 		public IEnumerable<User> GetAll()
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -93,7 +96,7 @@ namespace DAL.Services
 
 		public IEnumerable<User> GetAllActive()
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -116,7 +119,7 @@ namespace DAL.Services
 
 		public int Insert(User user)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -133,7 +136,7 @@ namespace DAL.Services
 
 		public void Update(int user_id, User user)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -149,12 +152,13 @@ namespace DAL.Services
 
 		public void Delete(int user_id)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
 					command.CommandText = "SP_Utilisateur_Delete";
 					command.CommandType = CommandType.StoredProcedure;
+
 					command.Parameters.AddWithValue("@UtilisateurId", user_id); // Nom exact du paramètre
 					connection.Open();
 					command.ExecuteNonQuery();
