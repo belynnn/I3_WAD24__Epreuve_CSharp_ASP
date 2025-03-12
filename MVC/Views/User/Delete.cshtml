@@ -1,0 +1,39 @@
+﻿@model MVC.Models.User.UserDelete
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Désactiver votre compte</h1>
+
+<h3>Êtes-vous sûr de vouloir désactiver votre compte ?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Pseudo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Pseudo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+		<input type="hidden" asp-for="UtilisateurId" />
+
+        <input type="submit" value="Désactiver" class="btn btn-danger" /> |
+		<a asp-controller="User" asp-action="Details" asp-route-id="@Model.UtilisateurId" class="btn btn-primary">
+			Retour à votre profil
+		</a>
+
+		<a asp-action="Index" class="btn btn-primary text-white">
+			Retour à la liste des utilisateurs
+		</a>
+    </form>
+</div>

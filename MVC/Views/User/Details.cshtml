@@ -1,0 +1,33 @@
+﻿@model MVC.Models.User.UserDetails
+
+@{
+	ViewData["Title"] = $"👤 {Model.Pseudo}";
+}
+
+<h1>👤 @Html.DisplayFor(model => model.Pseudo)</h1>
+
+<div>
+    <h4>Informations</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Pseudo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Pseudo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+	@Html.ActionLink("Editer", "Edit", null, new { id = Model.UtilisateurId }, new { @class = "btn btn-success" })
+
+	<a class="text-white" asp-action="Index">
+		<button class="btn btn-secondary">Retour à la liste des utilisateurs</button>
+	</a>
+</div>

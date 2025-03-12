@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<MVC.Models.User.UserListItem>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Liste des utilisateurs actifs";
 }
 
-<h1>Index</h1>
+<h1>Liste des utilisateurs actifs</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Créer un utilisateur</a>
 </p>
 <table class="table">
     <thead>
@@ -26,9 +26,9 @@
 				</td>
 				<td>
 					<div class="btn-group">
-						@Html.ActionLink("Edit", "Edit", null, new { id = item.UtilisateurId }, new { @class = "btn btn-secondary" })
-						@Html.ActionLink("Details", "Details", null, new { id = item.UtilisateurId }, new { @class = "btn btn-primary" })
-						@Html.ActionLink("Delete", "Delete", null, new { id = item.UtilisateurId }, new { @class = "btn btn-danger" })
+						@Html.ActionLink("Editer", "Edit", null, new { id = item.UtilisateurId }, new { @class = "btn btn-success" })
+						@Html.ActionLink("Détails", "Details", null, new { id = item.UtilisateurId }, new { @class = "btn btn-primary" })
+						@Html.ActionLink("Désactiver", "Delete", null, new { id = item.UtilisateurId }, new { @class = "btn btn-danger" })
 					</div>
 				</td>
 			</tr>
