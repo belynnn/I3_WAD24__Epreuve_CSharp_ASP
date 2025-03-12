@@ -44,10 +44,9 @@ namespace BLL.Entities
 			MotDePasse = motDePasse;
 		}
 
-		public User(string pseudo, string email)
+		public User(string pseudo)
 		{
 			Pseudo = pseudo;
-			Email = email;
 		}
 	}
 }
