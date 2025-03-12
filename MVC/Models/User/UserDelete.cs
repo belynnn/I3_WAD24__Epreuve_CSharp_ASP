@@ -5,6 +5,9 @@ namespace MVC.Models.User
 {
 	public class UserDelete
 	{
+		[ScaffoldColumn(false)]
+		public int UtilisateurId { get; set; }
+
 		[DisplayName("Pseudo")]
 		public string Pseudo { get; set; }
 

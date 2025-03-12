@@ -5,6 +5,9 @@ namespace MVC.Models.User
 {
 	public class UserEditForm
 	{
+		[ScaffoldColumn(false)]
+		public int UtilisateurId { get; set; }
+
 		[DisplayName("Pseudo : ")]
 		[Required(ErrorMessage = "Le champ 'Pseudo' est obligatoire.")]
 		[MinLength(2, ErrorMessage = "Le champ 'Pseudo' doit contenir au minimum 2 caractères.")]
