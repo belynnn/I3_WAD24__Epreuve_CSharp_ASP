@@ -27,7 +27,7 @@
 <div>
 	@Html.ActionLink("Editer", "Edit", null, new { id = Model.UtilisateurId }, new { @class = "btn btn-success" })
 
-	<a class="text-white" asp-action="Index">
-		<button class="btn btn-secondary">Retour à la liste des utilisateurs</button>
+	<a asp-action="Index" class="btn btn-primary text-white">
+		Retour à la liste des utilisateurs
 	</a>
 </div>
