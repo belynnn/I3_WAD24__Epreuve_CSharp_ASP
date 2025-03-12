@@ -8,6 +8,6 @@ namespace Common.Repositories
 {
 	public interface IUserRepository<TUser> : ICRUDRepository<TUser, int>
 	{
-		//int CheckPassword(string email, string password);
+		int CheckPassword(string email, string password);
 	}
 }

@@ -166,7 +166,6 @@ namespace DAL.Services
 			}
 		}
 
-		/*
 		public int CheckPassword(string email, string password)
 		{
 			using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -182,6 +181,5 @@ namespace DAL.Services
 				}
 			}
 		}
-		*/
 	}
 }

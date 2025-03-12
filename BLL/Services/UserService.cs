@@ -55,11 +55,9 @@ namespace BLL.Services
 			_userService.Delete(user_id);
 		}
 
-		/*
 		public int CheckPassword(string email, string password)
 		{
 			return _userService.CheckPassword(email, password);
 		}
-		*/
 	}
 }
