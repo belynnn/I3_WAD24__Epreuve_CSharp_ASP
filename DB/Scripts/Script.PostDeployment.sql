@@ -27,10 +27,10 @@ VALUES
     ('Argent');
 
 -- 3. Insertion dans la table Jeux (dépend de Etat)
-INSERT INTO [dbo].[Jeux] ([Nom], [Description], [AgeMin], [AgeMax], [NbJoueurMin], [NbJoueurMax], [DureeMinute])
+INSERT INTO [dbo].[Jeux] ([Nom], [Description], [AgeMin], [AgeMax], [NbJoueurMin], [NbJoueurMax], [DureeMinute], [DateDesactivation])
 VALUES
-    ('Monopoly', 'Jeu de société classique où l''objectif est de devenir riche en achetant et vendant des propriétés.', 8, 99, 2, 6, 120),
-    ('Risk', 'Jeu de stratégie où l''objectif est de conquérir le monde.', 12, 99, 2, 6, 180);
+    ('Monopoly', 'Jeu de société classique où l''objectif est de devenir riche en achetant et vendant des propriétés.', 8, 99, 2, 6, 120, NULL),
+    ('Risk', 'Jeu de stratégie où l''objectif est de conquérir le monde.', 12, 99, 2, 6, 180, NULL);
 
 -- 4. Insertion dans la table Utilisateur avec génération de Salt et hash du mot de passe
 INSERT INTO [dbo].[Utilisateur] ([Email], [MotDePasse], [Pseudo], [DateCreation], [Salt])
