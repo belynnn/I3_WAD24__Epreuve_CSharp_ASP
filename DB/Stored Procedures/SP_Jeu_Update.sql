@@ -6,8 +6,7 @@
     @AgeMax INT,
     @NbJoueurMin INT,
     @NbJoueurMax INT,
-    @DureeMinute INT = NULL,
-    @EtatId INT
+    @DureeMinute INT = NULL
 AS
 BEGIN
     UPDATE [dbo].[Jeux]

@@ -6,14 +6,14 @@ BEGIN
                FROM   [dbo].[Jeux]
                WHERE  [JeuId] = @JeuId)
         BEGIN
-            DECLARE @InconnuId AS INT = -1;
-            -- Ne pas mettre à jour JeuId car c'est une colonne IDENTITY
+            -- Désactiver le jeu en mettant à jour la colonne DateDesactivation
             UPDATE [dbo].[Jeux]
-            SET    [Nom]          = 'Jeu Inconnu',
-                   [Description]  = 'Jeu supprimé'
+            SET    [DateDesactivation] = GETDATE()  -- Enregistre la date de désactivation
             WHERE  [JeuId] = @JeuId;
 
-            -- Mettre à jour les tables Posseder et Emprunt en remplaçant le JeuId
+            -- Mettre à jour les tables Posseder et Emprunt en remplaçant le JeuId par un ID inconnu (-1)
+            DECLARE @InconnuId AS INT = -1;
+
             UPDATE [dbo].[Posseder]
             SET    [JeuId] = @InconnuId
             WHERE  [JeuId] = @JeuId;
@@ -22,7 +22,7 @@ BEGIN
             SET    [JeuId] = @InconnuId
             WHERE  [JeuId] = @JeuId;
 
-            SELECT 'Jeu remplacé par un jeu inconnu avec succès' AS Message;
+            SELECT 'Jeu désactivé avec succès' AS Message;
         END
     ELSE
         BEGIN
