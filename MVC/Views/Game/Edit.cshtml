@@ -1,12 +1,11 @@
 ﻿@model MVC.Models.Game.GameEditForm
 
 @{
-    ViewData["Title"] = "Edit";
+	ViewData["Title"] = $"🎲 {Model.Nom}";
 }
 
-<h1>Edit</h1>
+<h1>Editer le jeu : 🎲 @Html.DisplayFor(model => model.Nom)</h1>
 
-<h4>GameEditForm</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -48,16 +47,6 @@
                 <span asp-validation-for="DureeMinute" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DateCreation" class="control-label"></label>
-                <input asp-for="DateCreation" class="form-control" />
-                <span asp-validation-for="DateCreation" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsDisabled" /> @Html.DisplayNameFor(model => model.IsDisabled)
-                </label>
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -65,7 +54,11 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+	<div class="btn-group">
+		<a asp-action="Index" class="btn btn-primary text-white">
+			Retour à la liste des jeux
+		</a>
+	</div>
 </div>
 
 @section Scripts {

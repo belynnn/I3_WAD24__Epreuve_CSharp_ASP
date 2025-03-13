@@ -1,12 +1,11 @@
 ﻿@model MVC.Models.Game.GameCreateForm
 
 @{
-    ViewData["Title"] = "Create";
+	ViewData["Title"] = "Ajouter un nouveau jeu";
 }
 
-<h1>Create</h1>
+<h1>Ajouter un nouveau jeu !</h1>
 
-<h4>GameCreateForm</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -60,7 +59,11 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+	<div class="btn-group">
+		<a asp-action="Index" class="btn btn-primary text-white">
+			Retour à la liste des jeux
+		</a>
+	</div>
 </div>
 
 @section Scripts {

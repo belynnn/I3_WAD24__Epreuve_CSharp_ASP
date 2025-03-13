@@ -77,7 +77,6 @@ namespace MVC.Controllers
 		}
 
 		// GET: GameController/Edit/5
-		[ConnectionNeeded("Details", "Game", true)]
 		public ActionResult Edit(int id)
 		{
 			try
@@ -138,7 +137,7 @@ namespace MVC.Controllers
 			}
 			catch
 			{
-				return View();
+				return RedirectToAction(nameof(Delete), new { id = id });
 			}
 		}
 	}

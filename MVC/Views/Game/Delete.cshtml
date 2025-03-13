@@ -1,14 +1,14 @@
 ﻿@model MVC.Models.Game.GameDelete
 
 @{
-    ViewData["Title"] = "Delete";
+	ViewData["Title"] = $"🎲 {Model.Nom}";
 }
 
-<h1>Delete</h1>
+<h1>Désactiver le jeu : 🎲 @Html.DisplayFor(model => model.Nom)</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Êtes-vous sûr de vouloir désactiver 🎲 @Html.DisplayFor(model => model.Nom)</h3>
 <div>
-    <h4>GameDelete</h4>
+    <h4>Jeu à supprimer</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -68,7 +68,14 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+		<input type="hidden" asp-for="JeuId" />
+
+		<input type="submit" value="Désactiver" class="btn btn-danger" />
+		<a asp-controller="User" asp-action="Details" asp-route-id="@Model.JeuId" class="btn btn-primary">
+			Retour à la page du jeu
+		</a>
+		<a asp-action="Index" class="btn btn-primary text-white">
+			Retour à la liste des jeux
+		</a>
     </form>
 </div>
