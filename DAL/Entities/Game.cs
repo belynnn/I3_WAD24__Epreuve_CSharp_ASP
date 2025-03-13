@@ -9,8 +9,8 @@ namespace DAL.Entities
 	public class Game
 	{
 		public int JeuId { get; set; }
-		public string Nom { get; set; }
-		public string Description { get; set; }
+		public required string Nom { get; set; }
+		public required string Description { get; set; }
 		public int AgeMin { get; set; }
 		public int AgeMax { get; set; }
 		public int NbJoueurMin { get; set; }
