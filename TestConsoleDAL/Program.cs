@@ -106,7 +106,8 @@ namespace TestConsoleDAL
 			*/
 			#endregion
 
-			#region TEST DAL JEUX
+			#region TEST DAL GAME
+			/*
 			Console.WriteLine("=== Début du test DAL (GameService) avec la vraie base de données ===\n");
 
 			// Instanciation du GameService de la DAL
@@ -188,6 +189,7 @@ namespace TestConsoleDAL
 
 			Console.WriteLine("\n=== Fin du test ===");
 			Console.ReadLine();
+			*/
 			#endregion
 		}
 	}
