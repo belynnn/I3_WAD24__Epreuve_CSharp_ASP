@@ -48,9 +48,11 @@ namespace MVC
 			// Ajout du service de sessionManager
 			builder.Services.AddScoped<SessionManager>();
 
-			//Ajout dess services : BLL & DAL
+			//Ajout des services : BLL & DAL
 			builder.Services.AddScoped<IUserRepository<BLL.Entities.User>, BLL.Services.UserService>();
-			builder.Services.AddScoped<IUserRepository<DAL.Entities.User>, DAL.Services.UserService>();
+			builder.Services.AddScoped<IUserRepository<DAL.Entities.User>, DAL.Services.UserService>(); 
+			builder.Services.AddScoped<IGameRepository<BLL.Entities.Game>, BLL.Services.GameService>();
+			builder.Services.AddScoped<IGameRepository<DAL.Entities.Game>, DAL.Services.GameService>();
 
 			var app = builder.Build();
 
