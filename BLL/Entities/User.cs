@@ -26,14 +26,14 @@ namespace BLL.Entities
 
 		// SI ROLE
 		// public User(Guid userId, string pseudo, string email, string motDePasse, DateTime dateCreation, DateTime? _dateDesactivation, string role)
-		public User(int utilisateurId, string pseudo, string email, string motDePasse, DateTime dateCreation, DateTime? _dateDesactivation)
+		public User(int utilisateurId, string pseudo, string email, string motDePasse, DateTime dateCreation, DateTime? dateDesactivation)
 		{
 			UtilisateurId = utilisateurId;
 			Pseudo = pseudo;
 			Email = email;
 			MotDePasse = motDePasse;
 			DateCreation = dateCreation;
-			_dateDesactivation = _dateDesactivation;
+			_dateDesactivation = dateDesactivation;
 			//Role = Enum.Parse<UserRole>(role);
 		}
 
