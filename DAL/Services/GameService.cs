@@ -10,17 +10,17 @@ using System.Data;
 namespace DAL.Services
 {
 	// ⚡Pour la suite
-	//public class GameService : BaseService, IGameRepository<DAL.Entities.Game>
-	public class GameService : IGameRepository<DAL.Entities.Game>
+	public class GameService : BaseService, IGameRepository<DAL.Entities.Game>
+	//public class GameService : IGameRepository<DAL.Entities.Game>
 	{
 		// ⚡Pour la suite
-		//public UserService(IConfiguration config) : base(config, "Main-DB") { }
+		public GameService(IConfiguration config) : base(config, "Main-DB") { }
 		// Pour DAL & BLL
-		private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB;Integrated Security=True;";
+		//private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB;Integrated Security=True;";
 
 		public IEnumerable<Game> Get()
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -40,7 +40,7 @@ namespace DAL.Services
 
 		public IEnumerable<Game> GetAll()
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -62,7 +62,7 @@ namespace DAL.Services
 
 		public IEnumerable<Game> GetAllActive()
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -85,7 +85,7 @@ namespace DAL.Services
 
 		public Game Get(int jeuId)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -115,7 +115,7 @@ namespace DAL.Services
 				throw new ArgumentNullException(nameof(game), "Le jeu ne peut pas être nul.");
 			}
 
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -139,7 +139,7 @@ namespace DAL.Services
 
 		public void Update(int jeuId, Game game)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -163,7 +163,7 @@ namespace DAL.Services
 		// Désactiver un jeu
 		public void Delete(int jeuId)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
