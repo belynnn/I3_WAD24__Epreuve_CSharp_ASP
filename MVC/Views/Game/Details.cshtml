@@ -1,0 +1,76 @@
+﻿@model MVC.Models.Game.GameDetails
+
+@{
+	ViewData["Title"] = $"🎲 {Model.Nom}";
+}
+
+<h1>🎲 @Html.DisplayFor(model => model.Nom)</h1>
+
+<div>
+	<h4>Informations</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nom)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nom)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AgeMin)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AgeMin)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.AgeMax)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.AgeMax)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NbJoueurMin)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NbJoueurMin)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NbJoueurMax)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NbJoueurMax)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DureeMinute)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DureeMinute)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateCreation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateCreation)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsDisabled)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsDisabled)
+        </dd>
+    </dl>
+</div>
+<div>
+	<div class="btn-group">
+		@Html.ActionLink("Editer", "Edit", null, new { id = Model.JeuId }, new { @class = "btn btn-success" })
+		<a asp-action="Index" class="btn btn-primary text-white">
+			Retour à la liste des jeux
+		</a>
+	</div>
+</div>

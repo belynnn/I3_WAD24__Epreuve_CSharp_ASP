@@ -1,0 +1,87 @@
+﻿@model IEnumerable<MVC.Models.Game.GameListItem>
+
+@{
+    ViewData["Title"] = "Liste des jeux";
+}
+
+<h1>Liste des jeux</h1>
+
+<p>
+    <a asp-action="Create">Ajouter un jeu</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgeMin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AgeMax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NbJoueurMin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NbJoueurMax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DureeMinute)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDisabled)
+            </th>
+            <th>
+				Actions
+			</th>
+        </tr>
+    </thead>
+    <tbody>
+		@foreach (var item in Model) {
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Nom)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Description)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.AgeMin)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.AgeMax)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.NbJoueurMin)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.NbJoueurMax)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DureeMinute)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.DateCreation)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.IsDisabled)
+				</td>
+				<td>
+					<div class="btn-group">
+						@Html.ActionLink("Editer", "Edit", null, new { id = item.JeuId }, new { @class = "btn btn-success" })
+						@Html.ActionLink("Détails", "Details", null, new { id = item.JeuId }, new { @class = "btn btn-primary" })
+						@Html.ActionLink("Désactiver", "Delete", null, new { id = item.JeuId }, new { @class = "btn btn-danger" })
+					</div>
+				</td>
+			</tr>
+		}
+    </tbody>
+</table>

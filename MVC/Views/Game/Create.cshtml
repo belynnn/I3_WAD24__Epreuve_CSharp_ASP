@@ -1,0 +1,68 @@
+﻿@model MVC.Models.Game.GameCreateForm
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>GameCreateForm</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nom" class="control-label"></label>
+                <input asp-for="Nom" class="form-control" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgeMin" class="control-label"></label>
+                <input asp-for="AgeMin" class="form-control" />
+                <span asp-validation-for="AgeMin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AgeMax" class="control-label"></label>
+                <input asp-for="AgeMax" class="form-control" />
+                <span asp-validation-for="AgeMax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NbJoueurMin" class="control-label"></label>
+                <input asp-for="NbJoueurMin" class="form-control" />
+                <span asp-validation-for="NbJoueurMin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NbJoueurMax" class="control-label"></label>
+                <input asp-for="NbJoueurMax" class="form-control" />
+                <span asp-validation-for="NbJoueurMax" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DureeMinute" class="control-label"></label>
+                <input asp-for="DureeMinute" class="form-control" />
+                <span asp-validation-for="DureeMinute" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateCreation" class="control-label"></label>
+                <input asp-for="DateCreation" class="form-control" />
+                <span asp-validation-for="DateCreation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
