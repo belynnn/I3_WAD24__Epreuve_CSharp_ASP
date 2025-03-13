@@ -8,6 +8,7 @@
     [NbJoueurMax] INT NOT NULL,
     [DureeMinute] INT NULL,
     [DateCreation] DATETIME NOT NULL DEFAULT GETDATE(),
+	[DateDesactivation] DATETIME NULL,
     CONSTRAINT PK_Jeux PRIMARY KEY ([JeuId]),
     CONSTRAINT CHK_Jeux_Age CHECK ([AgeMin] < [AgeMax]),
     CONSTRAINT CHK_Jeux_NbJoueur CHECK ([NbJoueurMin] <= [NbJoueurMax])

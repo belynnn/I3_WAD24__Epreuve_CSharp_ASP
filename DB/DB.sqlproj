@@ -94,6 +94,7 @@
     <Build Include="Stored Procedures\SP_Posseder_GetById.sql" />
     <Build Include="Stored Procedures\SP_Posseder_GetByUser.sql" />
     <Build Include="Stored Procedures\SP_Utilisateur_CheckPassword.sql" />
+    <Build Include="Stored Procedures\SP_Jeu_GetAllActive.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DB.publish.xml" />
