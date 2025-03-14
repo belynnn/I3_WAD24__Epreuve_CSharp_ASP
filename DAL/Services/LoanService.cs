@@ -10,14 +10,15 @@ using System.Data;
 namespace DAL.Services
 {
 	// ⚡Pour la suite
-	//public class GameService : BaseService, IGameRepository<DAL.Entities.Game>
-	public class GameService : IGameRepository<DAL.Entities.Game>
+	//public class LoanService : BaseService, ILoanRepository<DAL.Entities.Loan>
+	public class LoanService : ILoanRepository<DAL.Entities.Loan>
 	{
 		// ⚡Pour la suite
-		//public GameService(IConfiguration config) : base(config, "Main-DB") { }
+		//public LoanService(IConfiguration config) : base(config, "Main-DB") { }
 		// Pour DAL & BLL
 		private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB;Integrated Security=True;";
 
+		// Récupérer TOP10 jeux empruntés
 		public IEnumerable<Game> GetTop10MostRentedGames()
 		{
 			var games = new List<Game>();
@@ -46,145 +47,148 @@ namespace DAL.Services
 				}
 			}
 
-			// Retourner la liste des jeux, même si elle est vide
 			return games;
 		}
 
-		public IEnumerable<Game> Get()
+		// Récupérer tous les emprunts
+		public IEnumerable<Loan> Get()
 		{
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
-					command.CommandText = "SP_Jeu_GetAll";
+					command.CommandText = "SP_Emprunt_GetAll"; // Exemple de procédure stockée
 					command.CommandType = CommandType.StoredProcedure;
 					connection.Open();
 					using (SqlDataReader reader = command.ExecuteReader())
 					{
 						while (reader.Read())
 						{
-							yield return reader.ToGame();
+							yield return reader.ToLoan();
 						}
 					}
 				}
 			}
 		}
 
-		public IEnumerable<Game> GetAll()
+		public IEnumerable<Loan> GetAll()
 		{
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
-					command.CommandText = "SP_Jeu_GetAll";
+					command.CommandText = "SP_Emprunt_GetAll";
 					command.CommandType = CommandType.StoredProcedure;
 					connection.Open();
 					using (SqlDataReader reader = command.ExecuteReader())
 					{
-						var games = new List<Game>();
+						var loans = new List<Loan>();
 						while (reader.Read())
 						{
-							games.Add(reader.ToGame());
+							loans.Add(reader.ToLoan());
 						}
-						return games;
+						return loans;
 					}
 				}
 			}
 		}
 
-		public IEnumerable<Game> GetAllActive()
+		// Récupérer tous les emprunts actifs
+		public IEnumerable<Loan> GetAllActive()
 		{
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
-					command.CommandText = "SP_Jeu_GetAllActive";
+					command.CommandText = "SP_Emprunt_GetAllActive"; // Exemple de procédure stockée
 					command.CommandType = CommandType.StoredProcedure;
 					connection.Open();
 					using (SqlDataReader reader = command.ExecuteReader())
 					{
-						var games = new List<Game>();
+						var loans = new List<Loan>();
 						while (reader.Read())
 						{
-							games.Add(reader.ToGame());
+							loans.Add(reader.ToLoan());
 						}
-						return games;
+						return loans;
 					}
 				}
 			}
 		}
 
-
-		public Game Get(int jeuId)
+		// Récupérer un emprunt par son ID
+		public Loan Get(int empruntId)
 		{
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
-					command.CommandText = "SP_Jeu_GetById";
+					command.CommandText = "SP_Emprunt_GetById"; // Exemple de procédure stockée
 					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.AddWithValue(nameof(jeuId), jeuId);
+					command.Parameters.AddWithValue(nameof(empruntId), empruntId);
 					connection.Open();
 					using (SqlDataReader reader = command.ExecuteReader())
 					{
 						if (reader.Read())
 						{
-							return reader.ToGame();
+							return reader.ToLoan();
 						}
 						else
 						{
-							throw new ArgumentOutOfRangeException(nameof(jeuId));
+							throw new ArgumentOutOfRangeException(nameof(empruntId));
 						}
 					}
 				}
 			}
 		}
 
-		public int Insert(Game game)
+		// Insérer un emprunt
+		public int Insert(Loan loan)
 		{
-			if (game == null)
+			if (loan == null)
 			{
-				throw new ArgumentNullException(nameof(game), "Le jeu ne peut pas être nul.");
+				throw new ArgumentNullException(nameof(loan), "L'emprunt ne peut pas être nul.");
 			}
 
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
-					command.CommandText = "SP_Jeu_Insert";
+					command.CommandText = "SP_Emprunt_Insert"; // Exemple de procédure stockée
 					command.CommandType = CommandType.StoredProcedure;
 
-					command.Parameters.AddWithValue(nameof(Game.Nom), string.IsNullOrEmpty(game.Nom) ? throw new ArgumentNullException(nameof(game.Nom), "Le nom du jeu ne peut pas être nul ou vide.") : game.Nom);
-					command.Parameters.AddWithValue(nameof(Game.Description), string.IsNullOrEmpty(game.Description) ? throw new ArgumentNullException(nameof(game.Description), "La description du jeu ne peut pas être vide.") : game.Description);
-					command.Parameters.AddWithValue(nameof(Game.AgeMin), game.AgeMin);
-					command.Parameters.AddWithValue(nameof(Game.AgeMax), game.AgeMax);
-					command.Parameters.AddWithValue(nameof(Game.NbJoueurMin), game.NbJoueurMin);
-					command.Parameters.AddWithValue(nameof(Game.NbJoueurMax), game.NbJoueurMax);
-					command.Parameters.AddWithValue(nameof(Game.DureeMinute), (object?)game.DureeMinute ?? DBNull.Value);
+					command.Parameters.AddWithValue(nameof(Loan.JeuId), loan.JeuId);
+					command.Parameters.AddWithValue(nameof(Loan.PreteurId), loan.PreteurId);
+					command.Parameters.AddWithValue(nameof(Loan.EmprunteurId), loan.EmprunteurId);
+					command.Parameters.AddWithValue(nameof(Loan.DateEmprunt), loan.DateEmprunt);
+					command.Parameters.AddWithValue(nameof(Loan.DateRetour), (object?)loan.DateRetour ?? DBNull.Value);
+					command.Parameters.AddWithValue(nameof(Loan.EvaluationPreteur), (object?)loan.EvaluationPreteur ?? DBNull.Value);
+					command.Parameters.AddWithValue(nameof(Loan.EvaluationEmprunteur), (object?)loan.EvaluationEmprunteur ?? DBNull.Value);
 
 					connection.Open();
-					// Assurez-vous que la procédure stockée retourne l'ID du jeu inséré
+					// Assurez-vous que la procédure stockée retourne l'ID de l'emprunt inséré
 					return (int)command.ExecuteScalar();
 				}
 			}
 		}
 
-		public void Update(int jeuId, Game game)
+		// Mettre à jour un emprunt
+		public void Update(int empruntId, Loan loan)
 		{
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
-					command.CommandText = "SP_Jeu_Update";
+					command.CommandText = "SP_Emprunt_Update"; // Exemple de procédure stockée
 					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.AddWithValue(nameof(jeuId), jeuId);
-					command.Parameters.AddWithValue(nameof(Game.Nom), game.Nom);
-					command.Parameters.AddWithValue(nameof(Game.Description), (object?)game.Description ?? DBNull.Value);
-					command.Parameters.AddWithValue(nameof(Game.AgeMin), game.AgeMin);
-					command.Parameters.AddWithValue(nameof(Game.AgeMax), game.AgeMax);
-					command.Parameters.AddWithValue(nameof(Game.NbJoueurMin), game.NbJoueurMin);
-					command.Parameters.AddWithValue(nameof(Game.NbJoueurMax), game.NbJoueurMax);
-					command.Parameters.AddWithValue(nameof(Game.DureeMinute), (object?)game.DureeMinute ?? DBNull.Value);
+					command.Parameters.AddWithValue(nameof(empruntId), empruntId);
+					command.Parameters.AddWithValue(nameof(Loan.JeuId), loan.JeuId);
+					command.Parameters.AddWithValue(nameof(Loan.PreteurId), loan.PreteurId);
+					command.Parameters.AddWithValue(nameof(Loan.EmprunteurId), loan.EmprunteurId);
+					command.Parameters.AddWithValue(nameof(Loan.DateEmprunt), loan.DateEmprunt);
+					command.Parameters.AddWithValue(nameof(Loan.DateRetour), (object?)loan.DateRetour ?? DBNull.Value);
+					command.Parameters.AddWithValue(nameof(Loan.EvaluationPreteur), (object?)loan.EvaluationPreteur ?? DBNull.Value);
+					command.Parameters.AddWithValue(nameof(Loan.EvaluationEmprunteur), (object?)loan.EvaluationEmprunteur ?? DBNull.Value);
 
 					connection.Open();
 					command.ExecuteNonQuery();
@@ -192,25 +196,20 @@ namespace DAL.Services
 			}
 		}
 
-		// Désactiver un jeu
-		public void Delete(int jeuId)
+		// Supprimer un emprunt
+		public void Delete(int empruntId)
 		{
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
-					command.CommandText = "SP_Jeu_Delete";
+					command.CommandText = "SP_Emprunt_Return"; // Exemple de procédure stockée
 					command.CommandType = CommandType.StoredProcedure;
-					command.Parameters.AddWithValue(nameof(jeuId), jeuId);
+					command.Parameters.AddWithValue(nameof(empruntId), empruntId);
 					connection.Open();
 					command.ExecuteNonQuery();
 				}
 			}
-		}
-
-		IEnumerable<Game> IGameRepository<Game>.GetTop10MostBorrowed()
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

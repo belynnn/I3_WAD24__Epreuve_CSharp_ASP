@@ -20,6 +20,15 @@ namespace BLL.Services
 			_gameRepository = gameRepository;
 		}
 
+		public IEnumerable<Game> GetTop10MostBorrowed()
+		{
+			// Récupère les 10 jeux les plus empruntés en appelant la méthode de la DAL
+			var games = _gameRepository.GetTop10MostBorrowed();
+
+			// Mapper les résultats DAL vers BLL et ajouter la propriété NombreEmprunts
+			return games.Select(dal => dal.ToBLL());
+		}
+
 		// Récupérer tous les jeux
 		public IEnumerable<Game> Get()
 		{

@@ -54,8 +54,10 @@ namespace BLL.Mappers
 				game.NbJoueurMax,
 				game.DureeMinute,
 				game.DateCreation,
-				game.DateDesactivation
-			);
+				game.DateDesactivation)
+			{
+				NombreEmprunts = game.NombreEmprunts
+			};
 		}
 
 		// Mapper de BLL vers DAL
@@ -74,6 +76,39 @@ namespace BLL.Mappers
 				DureeMinute = game.DureeMinute,
 				DateCreation = game.DateCreation,
 				DateDesactivation = (game.IsDisabled) ? new DateTime() : null
+			};
+		}
+		#endregion
+
+		#region LOAN
+		public static Loan ToBLL(this D.Loan loan)
+		{
+			if (loan is null) throw new ArgumentNullException(nameof(loan));
+			return new Loan(
+				loan.EmpruntId,
+				loan.JeuId,
+				loan.PreteurId,
+				loan.EmprunteurId,
+				loan.DateEmprunt,
+				loan.DateRetour,
+				loan.EvaluationPreteur,
+				loan.EvaluationEmprunteur
+			);
+		}
+
+		public static D.Loan ToDAL(this Loan loan)
+		{
+			if (loan is null) throw new ArgumentNullException(nameof(loan));
+			return new D.Loan()
+			{
+				EmpruntId = loan.EmpruntId,
+				JeuId = loan.JeuId,
+				PreteurId = loan.PreteurId,
+				EmprunteurId = loan.EmprunteurId,
+				DateEmprunt = loan.DateEmprunt,
+				DateRetour = loan.DateRetour,
+				EvaluationPreteur = loan.EvaluationPreteur,
+				EvaluationEmprunteur = loan.EvaluationEmprunteur
 			};
 		}
 		#endregion

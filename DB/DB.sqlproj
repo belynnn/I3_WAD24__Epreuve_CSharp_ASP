@@ -96,6 +96,8 @@
     <Build Include="Stored Procedures\SP_Utilisateur_CheckPassword.sql" />
     <Build Include="Stored Procedures\SP_Jeu_GetAllActive.sql" />
     <Build Include="Stored Procedures\SP_Game_Top10_Emprunter.sql" />
+    <Build Include="Stored Procedures\SP_Emprunt_GetAll.sql" />
+    <Build Include="Stored Procedures\SP_Emprunt_GetAllActive.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DB.publish.xml" />

@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Repositories
 {
-	public interface IGameRepository<TGame> : ICRUDRepository<TGame, int>
+	public interface ILoanRepository<TLoan> : ICRUDRepository<TLoan, int>
 	{
-		IEnumerable<TGame> GetTop10MostBorrowed();
 	}
 }

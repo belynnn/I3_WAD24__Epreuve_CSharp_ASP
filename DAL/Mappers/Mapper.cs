@@ -43,7 +43,28 @@ namespace DAL.Mappers
 				NbJoueurMax = (int)record[nameof(Game.NbJoueurMax)],
 				DureeMinute = record[nameof(Game.DureeMinute)] is DBNull ? (int?)null : (int)record[nameof(Game.DureeMinute)],
 				DateCreation = (DateTime)record[nameof(Game.DateCreation)],
-				DateDesactivation = record[nameof(Game.DateDesactivation)] is DBNull ? (DateTime?)null : (DateTime)record[nameof(Game.DateDesactivation)]
+				DateDesactivation = record[nameof(Game.DateDesactivation)] is DBNull ? (DateTime?)null : (DateTime)record[nameof(Game.DateDesactivation)],
+				NombreEmprunts = (int)record[nameof(Game.NombreEmprunts)]
+			};
+		}
+		#endregion
+
+		#region LOAN
+		public static Loan ToLoan(this IDataRecord record)
+		{
+			if (record is null) throw new ArgumentNullException(nameof(record));
+
+			return new Loan()
+			{
+				EmpruntId = (int)record[nameof(Loan.EmpruntId)],
+				JeuId = (int)record[nameof(Loan.JeuId)],
+				JeuNom = record["JeuNom"] as string, // Récupération du nom du jeu
+				PreteurId = (int)record[nameof(Loan.PreteurId)],
+				EmprunteurId = (int)record[nameof(Loan.EmprunteurId)],
+				DateEmprunt = (DateTime)record[nameof(Loan.DateEmprunt)],
+				DateRetour = record[nameof(Loan.DateRetour)] is DBNull ? null : (DateTime?)record[nameof(Loan.DateRetour)],
+				EvaluationPreteur = record[nameof(Loan.EvaluationPreteur)] is DBNull ? null : (int?)record[nameof(Loan.EvaluationPreteur)],
+				EvaluationEmprunteur = record[nameof(Loan.EvaluationEmprunteur)] is DBNull ? null : (int?)record[nameof(Loan.EvaluationEmprunteur)]
 			};
 		}
 		#endregion

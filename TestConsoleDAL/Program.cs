@@ -191,6 +191,101 @@ namespace TestConsoleDAL
 			Console.ReadLine();
 			*/
 			#endregion
+
+			#region TEST DAL LOAN
+			Console.WriteLine("=== Début du test DAL (LoanService) avec la vraie base de données ===\n");
+
+			// Instanciation du LoanService de la DAL
+			var loanService = new LoanService();
+
+			try
+			{
+				#region TEST GETBYID
+				// 🔹 Test : Récupération d'un emprunt par ID
+				int testLoanId = 1;  // Remplace par un ID valide existant dans ta base
+				Console.WriteLine($"\nRécupération de l'emprunt avec ID {testLoanId}...");
+				Loan loanById = loanService.Get(testLoanId);
+				Console.WriteLine($"Emprunt trouvé : Jeu ID {loanById.JeuId}, Emprunteur ID {loanById.EmprunteurId}");
+				#endregion
+
+				#region TEST GETALL
+				// 🔹 Test : Récupération de tous les emprunts (actifs et inactifs)
+				Console.WriteLine("\nListe des emprunts (tous) :");
+				foreach (Loan l in loanService.GetAll())
+				{
+					Console.WriteLine($"- Jeu ID {l.JeuId}, Emprunteur ID {l.EmprunteurId}");
+				}
+				#endregion
+
+				#region TEST GETALLACTIVE
+				// 🔹 Test : Récupération des emprunts actifs
+				Console.WriteLine("\nListe des emprunts actifs :");
+				foreach (Loan l in loanService.GetAllActive())
+				{
+					Console.WriteLine($"- Jeu ID {l.JeuId}, Emprunteur ID {l.EmprunteurId}");
+				}
+				#endregion
+
+				#region TEST INSERT
+				// 🔹 Test : Insertion d'un nouvel emprunt
+				Console.WriteLine("\nAjout d'un nouvel emprunt...");
+				Loan newLoan = new Loan
+				{
+					JeuId = 2,           // Remplacer par un jeu valide existant
+					PreteurId = 1,       // Remplacer par un préteur valide
+					EmprunteurId = 2,    // Remplacer par un emprunteur valide
+					DateEmprunt = DateTime.Now,
+					DateRetour = DateTime.Now.AddDays(7),
+					EvaluationPreteur = 2,
+					EvaluationEmprunteur = 3
+				};
+				int loanId = loanService.Insert(newLoan);
+				Console.WriteLine($"Emprunt ajouté avec ID : {loanId}");
+
+				// 🔹 Vérification de l'insertion
+				Loan foundLoan = loanService.Get(loanId);
+				Console.WriteLine($"Emprunt trouvé : Jeu ID {foundLoan.JeuId}, Emprunteur ID {foundLoan.EmprunteurId}");
+				#endregion
+
+				#region TEST UPDATE
+				// 🔹 Test : Modification d'un emprunt
+				Console.WriteLine("\nModification de l'emprunt...");
+				loanById.EvaluationPreteur = 5;
+
+				// Appeler la méthode de mise à jour
+				loanService.Update(testLoanId, loanById);
+
+				// Vérification de la mise à jour
+				Loan updatedLoan = loanService.Get(testLoanId);
+				Console.WriteLine($"Emprunt mis à jour : Évaluation du préteur {updatedLoan.EvaluationPreteur}");
+				#endregion
+
+				#region TEST DELETE
+				// 🔹 Suppression pour nettoyer le test
+				Console.WriteLine("\nDésactivation du test emprunt...");
+				loanService.Delete(testLoanId);
+				Console.WriteLine("Emprunt désactivé.");
+				#endregion
+
+				#region TEST TOP 10 MOST RENTED GAMES
+				// 🔹 Test : Récupération du Top 10 des jeux les plus empruntés
+				Console.WriteLine("\nRécupération du Top 10 des jeux les plus empruntés...");
+				var topGames = loanService.GetTop10MostRentedGames();
+				Console.WriteLine("Top 10 des jeux les plus empruntés :");
+				foreach (var game in topGames)
+				{
+					Console.WriteLine($"Jeu ID {game.JeuId}, Nom : {game.Nom}, Description : {game.Description} Nombre d'emprunts : {game.NombreEmprunts}");
+				}
+				#endregion
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"❌ Erreur : {ex.Message}");
+			}
+
+			Console.WriteLine("\n=== Fin du test ===");
+			Console.ReadLine();
+			#endregion
 		}
 	}
 }

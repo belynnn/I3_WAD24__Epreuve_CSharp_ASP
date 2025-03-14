@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<BLL.Entities.Game>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -6,3 +8,24 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@* <h2>Top 10 des jeux les plus empruntés</h2> *@
+@* <table class="table"> *@
+@* 	<thead> *@
+@* 		<tr> *@
+@* 			<th>Nom</th> *@
+@* 			<th>Description</th> *@
+@* 			<th>Nombre d'emprunts</th> *@
+@* 		</tr> *@
+@* 	</thead> *@
+@* 	<tbody> *@
+@* 		@foreach (var game in Model) *@
+@* 		{ *@
+@* 			<tr> *@
+@* 				<td>@game.Nom</td> *@
+@* 				<td>@game.Description</td> *@
+@* 				<td>@game.BorrowCount</td> <!-- Assurez-vous d'ajouter BorrowCount en BLL --> *@
+@* 			</tr> *@
+@* 		} *@
+@* 	</tbody> *@
+@* </table> *@

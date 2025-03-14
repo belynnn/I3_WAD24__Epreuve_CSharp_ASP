@@ -18,5 +18,6 @@ namespace DAL.Entities
 		public int? DureeMinute { get; set; }
 		public DateTime DateCreation { get; set; }
 		public DateTime? DateDesactivation { get; set; }
+		public int NombreEmprunts { get; set; }
 	}
 }

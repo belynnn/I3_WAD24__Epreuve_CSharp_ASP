@@ -1,3 +1,5 @@
+using BLL.Services;
+using Common.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
 using System.Diagnostics;
@@ -7,15 +9,18 @@ namespace MVC.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
+		private readonly IGameRepository<BLL.Entities.Game> _gameService;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, IGameRepository<BLL.Entities.Game> gameService)
 		{
 			_logger = logger;
+			_gameService = gameService;
 		}
 
 		public IActionResult Index()
 		{
-			return View();
+			var games = _gameService.Get();
+			return View(games);
 		}
 
 		public IActionResult Privacy()

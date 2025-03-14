@@ -18,6 +18,7 @@ namespace BLL.Entities
 		public int? DureeMinute { get; set; }
 		public DateTime DateCreation { get; set; }
 		private DateTime? _dateDesactivation;
+		public int NombreEmprunts { get; set; }
 
 		// Propriété qui retourne un booléen indiquant si le jeu est désactivé
 		public bool IsDisabled

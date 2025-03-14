@@ -176,6 +176,101 @@ namespace TestConsoleBLL
 			Console.ReadLine();
 			*/
 			#endregion
+
+			#region TEST BLL EMPRUNT
+			Console.WriteLine("=== Début du test BLL pour Emprunt ===\n");
+
+			// Instanciation du EmpruntService de la DAL
+			var dalEmpruntService = new D.LoanService(); // Vérifie que ce nom correspond à ton DAL.EmpruntService
+
+			// Instanciation de la BLL avec la vraie DAL
+			var empruntService = new LoanService(dalEmpruntService);
+
+			try
+			{
+				#region TEST GETBYID
+				// 🔹 Test : Récupération d'un emprunt par ID
+				int testEmpruntId = 1;  // Remplace par un ID valide existant dans ta base de données
+				Console.WriteLine($"\nRécupération de l'emprunt avec ID {testEmpruntId}...");
+				Loan empruntById = empruntService.Get(testEmpruntId);
+				if (empruntById != null)
+				{
+					Console.WriteLine($"Emprunt trouvé : Jeu ID {empruntById.JeuId} ({empruntById.JeuNom}), Prêteur ID {empruntById.PreteurId}, Emprunteur ID {empruntById.EmprunteurId}, Date d'emprunt {empruntById.DateEmprunt}");
+				}
+				else
+				{
+					Console.WriteLine($"Emprunt avec ID {testEmpruntId} non trouvé.");
+				}
+				#endregion
+
+				#region TEST GETALL
+				// 🔹 Test : Récupération de tous les emprunts
+				Console.WriteLine("\nListe de tous les emprunts :");
+				foreach (Loan e in empruntService.GetAll())
+				{
+					Console.WriteLine($"- Emprunt {e.EmpruntId}: Jeu ID {e.JeuId} ({e.JeuNom}), Prêteur ID {e.PreteurId}, Emprunteur ID {e.EmprunteurId}, Date d'emprunt {e.DateEmprunt}");
+				}
+				#endregion
+
+				#region TEST GETBYEMPRUNTEURID
+				/*
+				// 🔹 Test : Récupération des emprunts par ID emprunteur
+				int testEmprunteurId = 1;  // Remplace par un ID valide d'emprunteur
+				Console.WriteLine($"\nListe des emprunts pour l'emprunteur avec ID {testEmprunteurId}:");
+				foreach (Loan e in empruntService.GetByEmprunteurId(testEmprunteurId))
+				{
+					Console.WriteLine($"- Emprunt {e.EmpruntId}: Jeu ID {e.JeuId}");
+				}
+				*/
+				#endregion
+
+				#region TEST INSERT
+				// 🔹 Test : Insertion d'un nouvel emprunt
+				Console.WriteLine("\nAjout d'un nouvel emprunt...");
+				Loan newEmprunt = new Loan
+				{
+					JeuId = 1, // ID de jeu existant
+					PreteurId = 1, // ID de prêteur existant
+					EmprunteurId = 2, // ID d'emprunteur existant
+					DateEmprunt = DateTime.Now,
+					DateRetour = DateTime.Now.AddDays(7) // Emprunt de 7 jours
+				};
+				int empruntId = empruntService.Insert(newEmprunt);
+				Console.WriteLine($"Emprunt ajouté avec ID : {empruntId}");
+
+				// 🔹 Vérification de l'insertion
+				Loan foundEmprunt = empruntService.Get(empruntId);
+				Console.WriteLine($"Emprunt trouvé : Jeu ID {foundEmprunt.JeuId}, Prêteur ID {foundEmprunt.PreteurId}, Emprunteur ID {foundEmprunt.EmprunteurId}");
+				#endregion
+
+				#region TEST UPDATE
+				// 🔹 Test : Modification d'un emprunt
+				Console.WriteLine("\nModification de l'emprunt...");
+				foundEmprunt.DateRetour = DateTime.Now.AddDays(14); // Prolonger la durée de l'emprunt
+
+				// Appeler la méthode de mise à jour
+				empruntService.Update(empruntId, foundEmprunt);
+
+				// Vérification de la mise à jour
+				Loan updatedEmprunt = empruntService.Get(empruntId);
+				Console.WriteLine($"Emprunt mis à jour : Retour prévu pour {updatedEmprunt.DateRetour}");
+				#endregion
+
+				#region TEST DELETE
+				// 🔹 Test : Suppression d'un emprunt
+				Console.WriteLine("\nSuppression de l'emprunt...");
+				empruntService.Delete(empruntId);
+				Console.WriteLine("Emprunt supprimé.");
+				#endregion
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Erreur : {ex.Message}");
+			}
+
+			Console.WriteLine("\n=== Fin du test ===");
+			Console.ReadLine();
+			#endregion
 		}
 	}
 }
