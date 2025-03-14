@@ -178,6 +178,7 @@ namespace TestConsoleBLL
 			#endregion
 
 			#region TEST BLL EMPRUNT
+			/*
 			Console.WriteLine("=== Début du test BLL pour Emprunt ===\n");
 
 			// Instanciation du EmpruntService de la DAL
@@ -213,7 +214,7 @@ namespace TestConsoleBLL
 				#endregion
 
 				#region TEST GETBYEMPRUNTEURID
-				/*
+				
 				// 🔹 Test : Récupération des emprunts par ID emprunteur
 				int testEmprunteurId = 1;  // Remplace par un ID valide d'emprunteur
 				Console.WriteLine($"\nListe des emprunts pour l'emprunteur avec ID {testEmprunteurId}:");
@@ -221,7 +222,7 @@ namespace TestConsoleBLL
 				{
 					Console.WriteLine($"- Emprunt {e.EmpruntId}: Jeu ID {e.JeuId}");
 				}
-				*/
+				
 				#endregion
 
 				#region TEST INSERT
@@ -247,13 +248,15 @@ namespace TestConsoleBLL
 				// 🔹 Test : Modification d'un emprunt
 				Console.WriteLine("\nModification de l'emprunt...");
 				foundEmprunt.DateRetour = DateTime.Now.AddDays(14); // Prolonger la durée de l'emprunt
+				foundEmprunt.EvaluationPreteur = 5; // Ajouter une évaluation du prêteur
+				foundEmprunt.EvaluationEmprunteur = 4; // Ajouter une évaluation de l'emprunteur
 
 				// Appeler la méthode de mise à jour
 				empruntService.Update(empruntId, foundEmprunt);
 
 				// Vérification de la mise à jour
 				Loan updatedEmprunt = empruntService.Get(empruntId);
-				Console.WriteLine($"Emprunt mis à jour : Retour prévu pour {updatedEmprunt.DateRetour}");
+				Console.WriteLine($"Emprunt mis à jour : Retour prévu pour {updatedEmprunt.DateRetour}, Évaluation du prêteur {updatedEmprunt.EvaluationPreteur}, Évaluation de l'emprunteur {updatedEmprunt.EvaluationEmprunteur}");
 				#endregion
 
 				#region TEST DELETE
@@ -270,6 +273,7 @@ namespace TestConsoleBLL
 
 			Console.WriteLine("\n=== Fin du test ===");
 			Console.ReadLine();
+			*/
 			#endregion
 		}
 	}
