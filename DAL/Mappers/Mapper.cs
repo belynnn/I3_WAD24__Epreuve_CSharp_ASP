@@ -43,8 +43,7 @@ namespace DAL.Mappers
 				NbJoueurMax = (int)record[nameof(Game.NbJoueurMax)],
 				DureeMinute = record[nameof(Game.DureeMinute)] is DBNull ? (int?)null : (int)record[nameof(Game.DureeMinute)],
 				DateCreation = (DateTime)record[nameof(Game.DateCreation)],
-				DateDesactivation = record[nameof(Game.DateDesactivation)] is DBNull ? (DateTime?)null : (DateTime)record[nameof(Game.DateDesactivation)],
-				NombreEmprunts = (int)record[nameof(Game.NombreEmprunts)]
+				DateDesactivation = record[nameof(Game.DateDesactivation)] is DBNull ? (DateTime?)null : (DateTime)record[nameof(Game.DateDesactivation)]
 			};
 		}
 		#endregion
