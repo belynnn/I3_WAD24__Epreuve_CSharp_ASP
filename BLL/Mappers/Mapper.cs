@@ -11,6 +11,7 @@ namespace BLL.Mappers
 	internal static class Mapper
 	{
 		#region USER
+		// Mapper de DAL vers BLL
 		public static User ToBLL(this D.User user)
 		{
 			if (user is null) throw new ArgumentNullException(nameof(user));
@@ -20,10 +21,10 @@ namespace BLL.Mappers
 				user.Email,
 				user.MotDePasse,
 				user.DateCreation,
-				user.DateDesactivation/*,
-				user.Role*/);
+				user.DateDesactivation);
 		}
 
+		// Mapper de BLL vers DAL
 		public static D.User ToDAL(this User user)
 		{
 			if (user is null) throw new ArgumentNullException(nameof(user));
@@ -41,6 +42,7 @@ namespace BLL.Mappers
 		#endregion
 
 		#region GAME
+		// Mapper de DAL vers BLL
 		public static Game ToBLL(this D.Game game)
 		{
 			if (game is null) throw new ArgumentNullException(nameof(game));
@@ -81,6 +83,7 @@ namespace BLL.Mappers
 		#endregion
 
 		#region LOAN
+		// Mapper de DAL vers BLL
 		public static Loan ToBLL(this D.Loan loan)
 		{
 			if (loan is null) throw new ArgumentNullException(nameof(loan));
@@ -96,6 +99,7 @@ namespace BLL.Mappers
 			);
 		}
 
+		// Mapper de BLL vers DAL
 		public static D.Loan ToDAL(this Loan loan)
 		{
 			if (loan is null) throw new ArgumentNullException(nameof(loan));

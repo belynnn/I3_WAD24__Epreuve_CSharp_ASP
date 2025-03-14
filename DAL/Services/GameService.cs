@@ -9,20 +9,19 @@ using System.Data;
 
 namespace DAL.Services
 {
-	// ⚡Pour la suite
-	//public class GameService : BaseService, IGameRepository<DAL.Entities.Game>
-	public class GameService : IGameRepository<DAL.Entities.Game>
-	{
-		// ⚡Pour la suite
-		//public GameService(IConfiguration config) : base(config, "Main-DB") { }
-		// Pour DAL & BLL
-		private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB-Debby-EpreuveASP;Integrated Security=True;";
+	// Implémentation de l'interface IGameRepository
+	public class GameService : BaseService, IGameRepository<DAL.Entities.Game>
 
+	{
+		// Chaîne de connexion à la base de données
+		public GameService(IConfiguration config) : base(config, "Main-DB") { }
+
+		// Méthode pour obtenir les 10 jeux les plus empruntés
 		public IEnumerable<Game> GetTop10MostRentedGames()
 		{
 			var games = new List<Game>();
 
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -50,9 +49,10 @@ namespace DAL.Services
 			return games;
 		}
 
+		// Méthode pour obtenir tous les jeux
 		public IEnumerable<Game> Get()
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -70,9 +70,10 @@ namespace DAL.Services
 			}
 		}
 
+		// Méthode pour obtenir tous les jeux
 		public IEnumerable<Game> GetAll()
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -92,9 +93,10 @@ namespace DAL.Services
 			}
 		}
 
+		// Méthode pour obtenir tous les jeux actifs
 		public IEnumerable<Game> GetAllActive()
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -114,9 +116,10 @@ namespace DAL.Services
 			}
 		}
 
+		// Méthode pour obtenir un jeu par ID
 		public Game Get(int jeuId)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -139,6 +142,7 @@ namespace DAL.Services
 			}
 		}
 
+		// Méthode pour insérer un jeu
 		public int Insert(Game game)
 		{
 			if (game == null)
@@ -146,7 +150,7 @@ namespace DAL.Services
 				throw new ArgumentNullException(nameof(game), "Le jeu ne peut pas être nul.");
 			}
 
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -162,15 +166,15 @@ namespace DAL.Services
 					command.Parameters.AddWithValue(nameof(Game.DureeMinute), (object?)game.DureeMinute ?? DBNull.Value);
 
 					connection.Open();
-					// Assurez-vous que la procédure stockée retourne l'ID du jeu inséré
 					return (int)command.ExecuteScalar();
 				}
 			}
 		}
 
+		// Méthode pour mettre à jour un jeu
 		public void Update(int jeuId, Game game)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -194,7 +198,7 @@ namespace DAL.Services
 		// Désactiver un jeu
 		public void Delete(int jeuId)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -210,7 +214,7 @@ namespace DAL.Services
 		// Méthode pour rechercher un jeu par nom
 		public IEnumerable<Game> Search(string searchTerm)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -230,7 +234,6 @@ namespace DAL.Services
 								JeuId = reader.GetInt32(reader.GetOrdinal("Jeu_Id")),
 								Nom = reader.GetString(reader.GetOrdinal("Nom")),
 								Description = reader.GetString(reader.GetOrdinal("Description"))
-								// Ajoute d'autres propriétés du jeu si nécessaire
 							};
 						}
 					}

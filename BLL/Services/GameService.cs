@@ -11,23 +11,17 @@ using DAL.Services;
 
 namespace BLL.Services
 {
+	// Implémentation de l'interface IGameRepository avec des objets de type BLL
 	public class GameService : IGameRepository<Game>
 	{
+		// Dépendance vers le repository de DAL
 		private IGameRepository<D.Game> _gameRepository;
 
+		// Constructeur
 		public GameService(IGameRepository<D.Game> gameRepository)
 		{
 			_gameRepository = gameRepository;
 		}
-
-		//public IEnumerable<Game> GetTop10MostRentedGames()
-		//{
-		//	// Récupère les 10 jeux les plus empruntés en appelant la méthode de la DAL
-		//	var games = _gameRepository.GetTop10MostRentedGames();
-
-		//	// Mapper les résultats DAL vers BLL et ajouter la propriété NombreEmprunts
-		//	return games.Select(dal => dal.ToBLL());
-		//}
 
 		// Récupérer tous les jeux
 		public IEnumerable<Game> Get()
@@ -72,21 +66,16 @@ namespace BLL.Services
 			_gameRepository.Delete(gameId);
 		}
 
+		// Top10 des jeux les plus empruntés
 		public IEnumerable<Game> GetTop10MostRentedGames()
 		{
-			var top10Games = _gameRepository.GetTop10MostRentedGames(); // This calls the DAL method
-			return top10Games.Select(dal => dal.ToBLL()); // Assuming you have a ToBLL() extension method to map DAL entities to BLL entities
+			var top10Games = _gameRepository.GetTop10MostRentedGames();
+			return top10Games.Select(dal => dal.ToBLL()); //
 		}
 
 		// Méthode pour rechercher des jeux
 		public IEnumerable<Game> Search(string searchQuery)
 		{
-			// Si la recherche est vide, on retourne tous les jeux
-			if (string.IsNullOrEmpty(searchQuery))
-			{
-				return _gameRepository.Get().Select(dal => dal.ToBLL());
-			}
-
 			// Recherche par nom de jeu uniquement
 			return _gameRepository.Get()
 				.Where(j => j.Nom.Contains(searchQuery, StringComparison.OrdinalIgnoreCase))

@@ -11,44 +11,8 @@ namespace DAL.Services
 {
 	// ⚡Pour la suite
 	public class LoanService : BaseService, ILoanRepository<DAL.Entities.Loan>
-	//public class LoanService : ILoanRepository<DAL.Entities.Loan>
 	{
-		// ⚡Pour la suite
 		public LoanService(IConfiguration config) : base(config, "Main-DB") { }
-		// Pour DAL & BLL
-		//private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB-Debby-EpreuveASP;Integrated Security=True;";
-
-		//// Récupérer TOP10 jeux empruntés
-		//public IEnumerable<Loan> GetTop10MostRentedGames()
-		//{
-		//	var loans = new List<Loan>();
-
-		//	using (SqlConnection connection = new SqlConnection(_connectionString))
-		//	{
-		//		using (SqlCommand command = connection.CreateCommand())
-		//		{
-		//			command.CommandText = "SP_Game_Top10_Emprunter";
-		//			command.CommandType = CommandType.StoredProcedure;
-
-		//			connection.Open();
-		//			using (SqlDataReader reader = command.ExecuteReader())
-		//			{
-		//				while (reader.Read())
-		//				{
-		//					loans.Add(new Loan
-		//					{
-		//						JeuId = reader.GetInt32(reader.GetOrdinal("JeuId")),
-		//						Nom = reader.GetString(reader.GetOrdinal("Nom")),
-		//						Description = reader.GetString(reader.GetOrdinal("Description")),
-		//						NombreEmprunts = reader.GetInt32(reader.GetOrdinal("NombreEmprunts"))
-		//					});
-		//				}
-		//			}
-		//		}
-		//	}
-
-		//	return loans;
-		//}
 
 		// Récupérer tous les emprunts
 		public IEnumerable<Loan> Get()
@@ -71,6 +35,7 @@ namespace DAL.Services
 			}
 		}
 
+		// Récupérer un emprunt par son ID
 		public IEnumerable<Loan> GetAll()
 		{
 			using (SqlConnection connection = new SqlConnection(_connectionString))

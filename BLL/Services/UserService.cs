@@ -10,10 +10,13 @@ using Common.Repositories;
 
 namespace BLL.Services
 {
+	// UserService implémente IUserRepository<User>
 	public class UserService : IUserRepository<User>
 	{
+		// _userService est une instance de IUserRepository<D.User>
 		private IUserRepository<D.User> _userService;
 
+		// Constructeur
 		public UserService(IUserRepository<D.User> userService)
 		{
 			_userService = userService;
@@ -31,7 +34,7 @@ namespace BLL.Services
 
 		public IEnumerable<User> GetAllActive()
 		{
-			return _userService.GetAllActive().Select(dal => dal.ToBLL());  // Conversion du DAL vers le BLL si nécessaire
+			return _userService.GetAllActive().Select(dal => dal.ToBLL());
 		}
 
 		public User Get(int user_id)

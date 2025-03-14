@@ -7,7 +7,6 @@ using System.Xml.Linq;
 
 namespace BLL.Entities
 {
-	//public enum UserRole { User, Admin }
 	public class User
 	{
 		public int UtilisateurId { get; set; }
@@ -16,16 +15,12 @@ namespace BLL.Entities
 		public string Pseudo { get; set; }
 		public DateTime DateCreation { get; set; }
 		private DateTime? _dateDesactivation;
-		//public string Role { get; set; }
-		//public UserRole Role { get; set; }
 
 		public bool IsDisabled
 		{
 			get { return _dateDesactivation is not null; }
 		}
 
-		// SI ROLE
-		// public User(Guid userId, string pseudo, string email, string motDePasse, DateTime dateCreation, DateTime? _dateDesactivation, string role)
 		public User(int utilisateurId, string pseudo, string email, string motDePasse, DateTime dateCreation, DateTime? dateDesactivation)
 		{
 			UtilisateurId = utilisateurId;
@@ -34,7 +29,6 @@ namespace BLL.Entities
 			MotDePasse = motDePasse;
 			DateCreation = dateCreation;
 			_dateDesactivation = dateDesactivation;
-			//Role = Enum.Parse<UserRole>(role);
 		}
 
 		public User(string pseudo, string email, string motDePasse)

@@ -10,8 +10,7 @@ namespace BLL.Entities
 	{
 		public int EmpruntId { get; set; }
 		public int JeuId { get; set; }
-		public string JeuNom { get; set; }  // Ajout de la propriété JeuNom
-
+		public string JeuNom { get; set; }
 		public int PreteurId { get; set; }
 		public int EmprunteurId { get; set; }
 		public DateTime DateEmprunt { get; set; }

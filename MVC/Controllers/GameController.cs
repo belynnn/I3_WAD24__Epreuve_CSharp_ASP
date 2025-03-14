@@ -141,6 +141,7 @@ namespace MVC.Controllers
 			}
 		}
 
+		// GET: GameController/Search
 		public IActionResult Search(string searchQuery)
 		{
 			if (string.IsNullOrEmpty(searchQuery))

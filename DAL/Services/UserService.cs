@@ -12,21 +12,12 @@ using System.Threading.Tasks;
 
 namespace DAL.Services
 {
-	// ⚡Pour la suite
 	public class UserService : BaseService, IUserRepository<DAL.Entities.User>
-	// Pour DAL & BLL
-	// public class UserService : IUserRepository<DAL.Entities.User>
 	{
-		// ⚡Pour la suite
 		public UserService(IConfiguration config) : base(config, "Main-DB") { }
-		// Pour DAL & BLL
-		// private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB-Debby-EpreuveASP;Integrated Security=True;";
 		public IEnumerable<User> Get()
 		{
-			// ⚡Pour la suite ⚡⚡⚡ modifier chaque _connectionString en ConnectionString
 			using (SqlConnection connection = new SqlConnection(_connectionString))
-			// Pour DAL & BLL
-			// using (SqlConnection connection = new SqlConnection(ConnectionString)) 
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{

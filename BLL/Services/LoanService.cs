@@ -11,10 +11,13 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
+	// Service de gestion des emprunts
 	public class LoanService : ILoanRepository<Loan>
 	{
+		// Dépendance vers le dépôt d'emprunts
 		private readonly ILoanRepository<D.Loan> _loanRepository;
 
+		// Constructeur
 		public LoanService(ILoanRepository<D.Loan> loanRepository)
 		{
 			_loanRepository = loanRepository;
@@ -62,25 +65,5 @@ namespace BLL.Services
 		{
 			_loanRepository.Delete(loanId);
 		}
-
-		//public IEnumerable<Loan> GetTop10MostRentedGames()
-		//{
-		//	var top10Games = _loanRepository.GetTop10MostRentedGames(); // This calls the DAL method
-		//	return top10Games.Select(dal => dal.ToBLL()); // Assuming you have a ToBLL() extension method to map DAL entities to BLL entities
-		//}
-
-		/*
-		// Récupérer tous les emprunts par un emprunteur
-		public IEnumerable<Loan> GetByEmprunteur(int emprunteurId)
-		{
-			return _loanRepository.GetByEmprunteur(emprunteurId).Select(dal => dal.ToBLL());
-		}
-
-		// Récupérer tous les emprunts par un prêteur
-		public IEnumerable<Loan> GetByPreteur(int preteurId)
-		{
-			return _loanRepository.GetByPreteur(preteurId).Select(dal => dal.ToBLL());
-		}
-		*/
 	}
 }
