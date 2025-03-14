@@ -144,20 +144,25 @@ namespace MVC.Controllers
 		// GET: GameController/Search
 		public IActionResult Search(string searchQuery)
 		{
+			// Si la recherche est vide OU qu'aucun jeu spécifique n'est trouvé, on retourne tous les jeux
 			if (string.IsNullOrEmpty(searchQuery))
 			{
-				var jeux = _gameRepository.Get();
+				var jeux = _gameRepository.Get()  // Récupère tous les jeux
+							  .Select(bll => bll.ToListItem()); // Conversion en GameListItem (si nécessaire)
 				return View("Index", jeux);  // Renvoyer à la vue Index avec tous les jeux
 			}
 
+			// Si une recherche est effectuée, on cherche les jeux correspondants
 			var game = _gameRepository.Get()
 							.FirstOrDefault(j => j.Nom.Contains(searchQuery, StringComparison.OrdinalIgnoreCase));
 
+			// Si un jeu est trouvé, redirige vers la page de détails du jeu
 			if (game != null)
 			{
 				return RedirectToAction("Details", new { id = game.JeuId });
 			}
 
+			// Si aucun jeu trouvé, afficher un message et rediriger vers l'index
 			TempData["ErrorMessage"] = "Aucun jeu trouvé.";
 			return RedirectToAction("Index");
 		}
