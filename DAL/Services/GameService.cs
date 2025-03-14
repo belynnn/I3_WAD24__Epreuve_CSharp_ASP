@@ -16,7 +16,7 @@ namespace DAL.Services
 		// ⚡Pour la suite
 		//public GameService(IConfiguration config) : base(config, "Main-DB") { }
 		// Pour DAL & BLL
-		private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB;Integrated Security=True;";
+		private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB-Debby-EpreuveASP;Integrated Security=True;";
 
 		public IEnumerable<Game> GetTop10MostRentedGames()
 		{
@@ -114,7 +114,6 @@ namespace DAL.Services
 			}
 		}
 
-
 		public Game Get(int jeuId)
 		{
 			using (SqlConnection connection = new SqlConnection(ConnectionString))
@@ -208,9 +207,35 @@ namespace DAL.Services
 			}
 		}
 
-		IEnumerable<Game> IGameRepository<Game>.GetTop10MostBorrowed()
+		// Méthode pour rechercher un jeu par nom
+		public IEnumerable<Game> Search(string searchTerm)
 		{
-			throw new NotImplementedException();
+			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			{
+				using (SqlCommand command = connection.CreateCommand())
+				{
+					// Requête SQL pour rechercher les jeux par nom (utilisation de LIKE)
+					command.CommandText = "SELECT * FROM Jeux WHERE Nom LIKE @searchTerm";
+					command.CommandType = CommandType.Text;
+					command.Parameters.AddWithValue("@searchTerm", "%" + searchTerm + "%");
+
+					connection.Open();
+					using (SqlDataReader reader = command.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							// Conversion de la ligne en objet Game et retour de l'objet via yield
+							yield return new Game
+							{
+								JeuId = reader.GetInt32(reader.GetOrdinal("Jeu_Id")),
+								Nom = reader.GetString(reader.GetOrdinal("Nom")),
+								Description = reader.GetString(reader.GetOrdinal("Description"))
+								// Ajoute d'autres propriétés du jeu si nécessaire
+							};
+						}
+					}
+				}
+			}
 		}
 	}
 }

@@ -50,9 +50,11 @@ namespace MVC
 
 			//Ajout des services : BLL & DAL
 			builder.Services.AddScoped<IUserRepository<BLL.Entities.User>, BLL.Services.UserService>();
-			builder.Services.AddScoped<IUserRepository<DAL.Entities.User>, DAL.Services.UserService>(); 
+			builder.Services.AddScoped<IUserRepository<DAL.Entities.User>, DAL.Services.UserService>();
 			builder.Services.AddScoped<IGameRepository<BLL.Entities.Game>, BLL.Services.GameService>();
 			builder.Services.AddScoped<IGameRepository<DAL.Entities.Game>, DAL.Services.GameService>();
+			builder.Services.AddScoped<ILoanRepository<BLL.Entities.Loan>, BLL.Services.LoanService>();
+			builder.Services.AddScoped<ILoanRepository<DAL.Entities.Loan>, DAL.Services.LoanService>();
 
 			var app = builder.Build();
 

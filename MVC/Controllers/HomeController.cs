@@ -1,5 +1,6 @@
 using BLL.Services;
 using Common.Repositories;
+using DAL.Services;
 using Microsoft.AspNetCore.Mvc;
 using MVC.Models;
 using System.Diagnostics;
@@ -10,17 +11,19 @@ namespace MVC.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
 		private readonly IGameRepository<BLL.Entities.Game> _gameService;
+		private readonly ILoanRepository<BLL.Entities.Loan> _loanService;
 
-		public HomeController(ILogger<HomeController> logger, IGameRepository<BLL.Entities.Game> gameService)
+		public HomeController(ILogger<HomeController> logger, IGameRepository<BLL.Entities.Game> gameService, ILoanRepository<BLL.Entities.Loan> loanService)
 		{
 			_logger = logger;
+			_loanService = loanService;
 			_gameService = gameService;
 		}
 
 		public IActionResult Index()
 		{
-			var games = _gameService.Get();
-			return View(games);
+			var topGames = _gameService.GetTop10MostRentedGames();
+			return View(topGames);
 		}
 
 		public IActionResult Privacy()

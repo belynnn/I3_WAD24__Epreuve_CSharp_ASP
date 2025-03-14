@@ -10,50 +10,50 @@ using System.Data;
 namespace DAL.Services
 {
 	// ⚡Pour la suite
-	//public class LoanService : BaseService, ILoanRepository<DAL.Entities.Loan>
-	public class LoanService : ILoanRepository<DAL.Entities.Loan>
+	public class LoanService : BaseService, ILoanRepository<DAL.Entities.Loan>
+	//public class LoanService : ILoanRepository<DAL.Entities.Loan>
 	{
 		// ⚡Pour la suite
-		//public LoanService(IConfiguration config) : base(config, "Main-DB") { }
+		public LoanService(IConfiguration config) : base(config, "Main-DB") { }
 		// Pour DAL & BLL
-		private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB;Integrated Security=True;";
+		//private const string ConnectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DB-Debby-EpreuveASP;Integrated Security=True;";
 
-		// Récupérer TOP10 jeux empruntés
-		public IEnumerable<Game> GetTop10MostRentedGames()
-		{
-			var games = new List<Game>();
+		//// Récupérer TOP10 jeux empruntés
+		//public IEnumerable<Loan> GetTop10MostRentedGames()
+		//{
+		//	var loans = new List<Loan>();
 
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
-			{
-				using (SqlCommand command = connection.CreateCommand())
-				{
-					command.CommandText = "SP_Game_Top10_Emprunter";
-					command.CommandType = CommandType.StoredProcedure;
+		//	using (SqlConnection connection = new SqlConnection(_connectionString))
+		//	{
+		//		using (SqlCommand command = connection.CreateCommand())
+		//		{
+		//			command.CommandText = "SP_Game_Top10_Emprunter";
+		//			command.CommandType = CommandType.StoredProcedure;
 
-					connection.Open();
-					using (SqlDataReader reader = command.ExecuteReader())
-					{
-						while (reader.Read())
-						{
-							games.Add(new Game
-							{
-								JeuId = reader.GetInt32(reader.GetOrdinal("JeuId")),
-								Nom = reader.GetString(reader.GetOrdinal("Nom")),
-								Description = reader.GetString(reader.GetOrdinal("Description")),
-								NombreEmprunts = reader.GetInt32(reader.GetOrdinal("NombreEmprunts"))
-							});
-						}
-					}
-				}
-			}
+		//			connection.Open();
+		//			using (SqlDataReader reader = command.ExecuteReader())
+		//			{
+		//				while (reader.Read())
+		//				{
+		//					loans.Add(new Loan
+		//					{
+		//						JeuId = reader.GetInt32(reader.GetOrdinal("JeuId")),
+		//						Nom = reader.GetString(reader.GetOrdinal("Nom")),
+		//						Description = reader.GetString(reader.GetOrdinal("Description")),
+		//						NombreEmprunts = reader.GetInt32(reader.GetOrdinal("NombreEmprunts"))
+		//					});
+		//				}
+		//			}
+		//		}
+		//	}
 
-			return games;
-		}
+		//	return loans;
+		//}
 
 		// Récupérer tous les emprunts
 		public IEnumerable<Loan> Get()
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -73,7 +73,7 @@ namespace DAL.Services
 
 		public IEnumerable<Loan> GetAll()
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -96,7 +96,7 @@ namespace DAL.Services
 		// Récupérer tous les emprunts actifs
 		public IEnumerable<Loan> GetAllActive()
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -119,7 +119,7 @@ namespace DAL.Services
 		// Récupérer un emprunt par son ID
 		public Loan Get(int empruntId)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -150,7 +150,7 @@ namespace DAL.Services
 				throw new ArgumentNullException(nameof(loan), "L'emprunt ne peut pas être nul.");
 			}
 
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -175,7 +175,7 @@ namespace DAL.Services
 		// Mettre à jour un emprunt
 		public void Update(int empruntId, Loan loan)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{
@@ -199,7 +199,7 @@ namespace DAL.Services
 		// Supprimer un emprunt
 		public void Delete(int empruntId)
 		{
-			using (SqlConnection connection = new SqlConnection(ConnectionString))
+			using (SqlConnection connection = new SqlConnection(_connectionString))
 			{
 				using (SqlCommand command = connection.CreateCommand())
 				{

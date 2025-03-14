@@ -140,5 +140,25 @@ namespace MVC.Controllers
 				return RedirectToAction(nameof(Delete), new { id = id });
 			}
 		}
+
+		public IActionResult Search(string searchQuery)
+		{
+			if (string.IsNullOrEmpty(searchQuery))
+			{
+				var jeux = _gameRepository.Get();
+				return View("Index", jeux);  // Renvoyer à la vue Index avec tous les jeux
+			}
+
+			var game = _gameRepository.Get()
+							.FirstOrDefault(j => j.Nom.Contains(searchQuery, StringComparison.OrdinalIgnoreCase));
+
+			if (game != null)
+			{
+				return RedirectToAction("Details", new { id = game.JeuId });
+			}
+
+			TempData["ErrorMessage"] = "Aucun jeu trouvé.";
+			return RedirectToAction("Index");
+		}
 	}
 }

@@ -8,6 +8,8 @@ namespace Common.Repositories
 {
 	public interface IGameRepository<TGame> : ICRUDRepository<TGame, int>
 	{
-		IEnumerable<TGame> GetTop10MostBorrowed();
+		IEnumerable<TGame> GetTop10MostRentedGames();
+		// Ajoutez la méthode Search ici
+		IEnumerable<TGame> Search(string searchQuery);  // Recherche par nom ou par tag
 	}
 }

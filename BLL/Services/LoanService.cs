@@ -63,6 +63,12 @@ namespace BLL.Services
 			_loanRepository.Delete(loanId);
 		}
 
+		//public IEnumerable<Loan> GetTop10MostRentedGames()
+		//{
+		//	var top10Games = _loanRepository.GetTop10MostRentedGames(); // This calls the DAL method
+		//	return top10Games.Select(dal => dal.ToBLL()); // Assuming you have a ToBLL() extension method to map DAL entities to BLL entities
+		//}
+
 		/*
 		// Récupérer tous les emprunts par un emprunteur
 		public IEnumerable<Loan> GetByEmprunteur(int emprunteurId)
